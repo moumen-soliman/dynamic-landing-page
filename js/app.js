@@ -1,18 +1,24 @@
 // Global Variables 
 
-const pageSections = document.querySelectorAll("section");
-const navbar = document.getElementById("navbar__list");
+const sections = document.querySelectorAll("section");
 
 // Build Nav
 
-for (let i = 0; i < pageSections.length; i++) {
-    const newLi = document.createElement("li");
-    const sections = document.getElementsByTagName("section");
-    newLi.innerHTML = `<a href="#${sections[i].id}">${sections[i].id}</a>`;
-    navbar.appendChild(newLi);
+for (let i = 0; i < sections.length; i++) {    
+    handleNavSections('navbar__list', 'li', 'section', i);
 };
 
-// Add class 'active' to section when near top of viewport
+// Helper functions
+
+function handleNavSections(navClass, createdElm, selectorTag, i) {
+    var navbar = document.getElementById(navClass);
+    var newElm = document.createElement(createdElm);
+    var newSelectorTag = document.getElementsByTagName(selectorTag);
+    var navElm = `<a href="#${newSelectorTag[i].id}">${newSelectorTag[i].id}</a>`;
+
+    newElm.innerHTML = navElm;
+    navbar.appendChild(newElm);
+};
 
 function inViewport(element) {
     let bounding = element.getBoundingClientRect();
@@ -25,11 +31,7 @@ function inViewport(element) {
 };
 
 window.addEventListener("scroll", function() {
-    for (const section of pageSections) {
-        if (inViewport(section)) {
-            section.classList.add("active");
-        } else {
-            section.classList.remove("active");
-        }
+    for (const section of sections) {
+        inViewport(section) ? section.classList.add("active") : section.classList.remove("active");
     }
 });
