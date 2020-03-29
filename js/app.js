@@ -2,15 +2,9 @@
 
 const sections = document.querySelectorAll("section");
 
-// Build Nav
-
-for (let i = 0; i < sections.length; i++) {    
-    handleNavSections('navbar__list', 'li', 'section', i);
-};
-
 // Helper functions
 
-function handleNavSections(navClass, createdElm, selectorTag, i) {
+const handleNavSections = (navClass, createdElm, selectorTag, i) => {
     var navbar = document.getElementById(navClass);
     var newElm = document.createElement(createdElm);
     var newSelectorTag = document.getElementsByTagName(selectorTag);
@@ -20,7 +14,7 @@ function handleNavSections(navClass, createdElm, selectorTag, i) {
     navbar.appendChild(newElm);
 };
 
-function inViewport(element) {
+const inViewport = (element) => {
     let bounding = element.getBoundingClientRect();
     return (
         bounding.top >= 0 &&
@@ -35,3 +29,9 @@ window.addEventListener("scroll", function() {
         inViewport(section) ? section.classList.add("active") : section.classList.remove("active");
     }
 });
+
+// Build Nav
+
+for (let i = 0; i < sections.length; i++) {    
+    handleNavSections('navbar__list', 'li', 'section', i);
+};
