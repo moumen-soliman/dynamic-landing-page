@@ -1,18 +1,19 @@
 // Global Variables 
 
-const sections = document.querySelectorAll("section");
+const sections = document.getElementsByTagName('section');
+const navbar = document.getElementById('navbar__list');
 
 // Helper functions
 
-const handleNavSections = (navClass, createdElm, selectorTag, i) => {
-    var navbar = document.getElementById(navClass);
-    var newElm = document.createElement(createdElm);
-    var newSelectorTag = document.getElementsByTagName(selectorTag);
-    var navElm = `<a href="#${newSelectorTag[i].id}">${newSelectorTag[i].id}</a>`;
-
-    newElm.innerHTML = navElm;
-    navbar.appendChild(newElm);
-};
+// Creating navbar dynamically.
+[...sections].map(section =>
+    navbar.innerHTML += `
+    <li>
+        <a href="#${section.id}">
+            ${section.getAttribute('data-nav')}
+        </a>
+    </li>`
+)
 
 const inViewport = (element) => {
     let bounding = element.getBoundingClientRect();
